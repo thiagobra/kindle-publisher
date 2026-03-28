@@ -331,7 +331,9 @@ def build_epub(content: dict[str, Any], output_path: Path) -> Path:
     book.set_identifier(book_id)
     book.set_title(title)
     book.set_language(lang)
-    book.add_author(content.get("author", ""))
+    author = content.get("author", "")
+    if author:
+        book.add_author(author)
 
     if subtitle:
         book.add_metadata("DC", "description", subtitle)
