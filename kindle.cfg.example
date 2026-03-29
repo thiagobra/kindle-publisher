@@ -1,0 +1,4 @@
+[kindle]
+KINDLE_EMAIL = you@kindle.com
+SENDER_EMAIL = you@gmx.com
+SENDER_PASS  = yourpassword

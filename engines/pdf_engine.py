@@ -122,13 +122,20 @@ def setup_optional_fonts() -> None:
     """Register an optional symbol-capable font for PDF-safe emoji-style icons."""
     global ICON_FONT, ICON_FONT_AVAILABLE
     candidates = [
+        # Linux
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
         "/usr/share/fonts/truetype/noto/NotoSansSymbols-Regular.ttf",
         "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+        # macOS
         "/Library/Fonts/Arial Unicode.ttf",
         "/Library/Fonts/Arial Unicode MS.ttf",
+        # Windows
         "C:/Windows/Fonts/arialuni.ttf",
         "C:/Windows/Fonts/segoeui.ttf",
+        # Android (PyDroid 3 / system fonts)
+        "/system/fonts/NotoSans-Regular.ttf",
+        "/system/fonts/DroidSans.ttf",
+        "/system/fonts/Roboto-Regular.ttf",
     ]
     if _try_register_font("PDFEngineIcon", candidates):
         ICON_FONT = "PDFEngineIcon"
