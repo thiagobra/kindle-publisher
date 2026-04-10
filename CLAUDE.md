@@ -27,6 +27,7 @@ python publish.py content.json --epub             # EPUB only
 python publish.py content.json --kindle           # EPUB + send to Kindle
 python publish.py content.json --pdf --kindle     # Full pipeline
 python publish.py guide.md --kindle               # Markdown input
+python publish.py book.epub --send                # Send existing EPUB directly
 ```
 
 ## Architecture
@@ -45,6 +46,7 @@ Key design decisions:
 - **EPUB splits chapters at h1 boundaries.** Each `h1` block starts a new EPUB chapter. Blocks before the first h1 become an "Introduction" chapter.
 - **Engines are independent.** PDF and EPUB generation have no dependency on each other. The sender only needs a file path.
 - **`--kindle` implies EPUB generation.** No need to pass `--epub --kindle` — `--kindle` alone generates the EPUB and sends it.
+- **`--send` bypasses the entire pipeline.** It takes a ready `.epub` file and sends it directly to Kindle — no parsing, no conversion. Rejects non-`.epub` inputs.
 
 ## Content Model
 

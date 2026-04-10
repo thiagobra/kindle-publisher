@@ -11,6 +11,7 @@ No manual steps. No file juggling. Write your content, run the command, and it l
 - **PDF Generation** — Polished A4 documents with table of contents, bookmarks, callout boxes, code blocks, tables, and more (powered by ReportLab)
 - **EPUB Generation** — Reflowable, Kindle-optimized EPUB with proper chapter splitting, semantic HTML, and clean CSS (powered by EbookLib)
 - **Send to Kindle** — Delivers the EPUB directly to your Kindle via email (SMTP)
+- **Send Existing EPUB** — Already have an `.epub` file? Send it straight to your Kindle with `--send` — no conversion needed
 - **Dual Input** — Accepts both JSON content models and Markdown/plain-text files
 - **Single Content Model** — One JSON file drives both PDF and EPUB outputs
 
@@ -59,7 +60,38 @@ python publish.py content.json --kindle
 
 # Works with Markdown too
 python publish.py guide.md --pdf --kindle
+
+# Send an existing .epub directly to Kindle (no conversion)
+python publish.py mybook.epub --send
 ```
+
+### 4. Sending an existing EPUB
+
+Already have an `.epub` file — maybe one you downloaded, or one you exported from another tool? You don't need to convert anything. Just point `--send` at it:
+
+```bash
+python publish.py mybook.epub --send
+```
+
+That's it. The file goes straight to your Kindle, no questions asked.
+
+**How it works:**
+- The tool skips the entire content pipeline (no JSON parsing, no PDF/EPUB generation).
+- It takes the `.epub` file as-is and emails it to your Kindle address via SMTP.
+- The email subject is automatically set to the filename (e.g., `mybook.epub` → subject "mybook").
+
+**What it won't do:**
+- It won't accept non-`.epub` files. If you pass a `.json` or `.md`, it will tell you so with a clear error.
+- It won't generate a PDF or a new EPUB — it only sends what you already have.
+
+**When to use `--send` vs `--kindle`:**
+
+| Flag | Input | What happens |
+|------|-------|-------------|
+| `--kindle` | `.json` or `.md` | Converts content to EPUB, then sends it |
+| `--send` | `.epub` | Sends the existing file directly — no conversion |
+
+> **Tip:** Think of `--kindle` as "build and deliver" and `--send` as "just deliver."
 
 ## 📄 Content Model
 
