@@ -53,7 +53,13 @@ def run(
         raise FileNotFoundError(f"Input file not found: {filepath}")
 
     fmt = _detect_format(filepath)
-    raw = filepath.read_text(encoding="utf-8")
+    raw_bytes = filepath.read_bytes()
+    for enc in ("utf-8-sig", "utf-8", "utf-16", "latin-1"):
+        try:
+            raw = raw_bytes.decode(enc)
+            break
+        except (UnicodeDecodeError, UnicodeError):
+            continue
     content = load_content(raw, fmt)
 
     out_dir = Path(output_dir) if output_dir else filepath.parent
