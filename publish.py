@@ -7,6 +7,7 @@ Usage:
     python publish.py content.json --epub
     python publish.py content.json --kindle
     python publish.py guide.md --kindle
+    python publish.py book.epub --send
 """
 
 from __future__ import annotations
@@ -45,12 +46,27 @@ def run(
     pdf: bool = False,
     epub: bool = False,
     kindle: bool = False,
+    send: bool = False,
     output_dir: str | None = None,
 ) -> dict[str, str | None]:
     """Run the publish pipeline. Returns dict with paths to generated files."""
     filepath = Path(input_path)
     if not filepath.is_file():
         raise FileNotFoundError(f"Input file not found: {filepath}")
+
+    result: dict[str, str | None] = {"pdf": None, "epub": None, "sent": None}
+
+    # -- Send existing EPUB directly --
+    if send:
+        if filepath.suffix.lower() != ".epub":
+            raise ValueError(
+                f"--send requires an .epub file, got '{filepath.suffix}'"
+            )
+        subject = filepath.stem
+        send_to_kindle(filepath, subject=subject)
+        result["sent"] = "ok"
+        print(f"Sent to Kindle: {filepath.name}")
+        return result
 
     fmt = _detect_format(filepath)
     raw_bytes = filepath.read_bytes()
@@ -63,7 +79,6 @@ def run(
     content = load_content(raw, fmt)
 
     out_dir = Path(output_dir) if output_dir else filepath.parent
-    result: dict[str, str | None] = {"pdf": None, "epub": None, "sent": None}
 
     # -- PDF --
     if pdf:
@@ -101,15 +116,16 @@ def main() -> None:
     parser.add_argument("--pdf", action="store_true", help="Generate PDF")
     parser.add_argument("--epub", action="store_true", help="Generate EPUB (without sending)")
     parser.add_argument("--kindle", action="store_true", help="Generate EPUB and send to Kindle")
+    parser.add_argument("--send", action="store_true", help="Send an existing .epub file directly to Kindle")
     parser.add_argument("-o", "--output-dir", help="Output directory (default: same as input)")
 
     args = parser.parse_args()
 
-    if not (args.pdf or args.epub or args.kindle):
-        parser.error("Specify at least one of: --pdf, --epub, --kindle")
+    if not (args.pdf or args.epub or args.kindle or args.send):
+        parser.error("Specify at least one of: --pdf, --epub, --kindle, --send")
 
     run(args.input, pdf=args.pdf, epub=args.epub, kindle=args.kindle,
-        output_dir=args.output_dir)
+        send=args.send, output_dir=args.output_dir)
 
 
 if __name__ == "__main__":
