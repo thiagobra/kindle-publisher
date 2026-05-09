@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A CLI tool that transforms JSON/Markdown content into PDF + EPUB and optionally sends the EPUB to a Kindle via email. One command, fully automated.
 
+## Requirements
+
+- **Python 3.10+** — the codebase uses PEP 604 union syntax (`str | None`) and built-in generic subscripting (`dict[str, str | None]`). Earlier versions will fail at import with a `TypeError`.
+
 ## Commands
 
 ```bash
