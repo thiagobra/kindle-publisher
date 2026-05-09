@@ -32,7 +32,10 @@ python publish.py content.json --kindle           # EPUB + send to Kindle
 python publish.py content.json --pdf --kindle     # Full pipeline
 python publish.py guide.md --kindle               # Markdown input
 python publish.py book.epub --send                # Send existing EPUB directly
+python publish.py content.json --pdf -o ./out     # Write outputs to a specific directory
 ```
+
+Outputs default to the input file's parent directory; pass `-o` / `--output-dir` to override. The directory must already exist.
 
 ## Architecture
 
