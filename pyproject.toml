@@ -1,6 +1,8 @@
 [tool.ruff]
 target-version = "py310"
 line-length = 100
+# Vendored from the pdf-doc skill; do not lint or format locally.
+extend-exclude = ["engines/pdf_engine.py"]
 
 [tool.ruff.lint]
 select = [
@@ -10,7 +12,3 @@ select = [
     "B",   # flake8-bugbear
     "UP",  # pyupgrade
 ]
-
-[tool.ruff.lint.per-file-ignores]
-# Vendored from the pdf-doc skill; do not lint locally.
-"engines/pdf_engine.py" = ["ALL"]

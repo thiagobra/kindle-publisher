@@ -46,7 +46,7 @@ python publish.py content.json --pdf -o ./out     # Write outputs to a specific 
 
 Outputs default to the input file's parent directory; pass `-o` / `--output-dir` to override. The directory must already exist.
 
-`ruff check .` will surface a small baseline of pre-existing violations (unused imports, import order in `tests/`, one long line). They are tracked separately and not gating; new code should be clean.
+`ruff check .` and `ruff format --check .` will surface a small baseline of pre-existing violations (unused imports, import order in `tests/`, one long line, a few formatter-driven whitespace tweaks). They are tracked separately and not gating; new code should be clean.
 
 ## Architecture
 
