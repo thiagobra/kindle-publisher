@@ -51,7 +51,7 @@ publish.py (orchestrator)
 ```
 
 Key design decisions:
-- **pdf_engine.py is copied from the pdf-doc skill** (pdf_engine_v4.py, 2259 lines). It provides both `build_pdf()` and `load_content()` — the latter is reused by the orchestrator to parse JSON and Markdown inputs for all engines.
+- **`engines/pdf_engine.py` is vendored from the `pdf-doc` skill.** Treat it as upstream code and avoid local edits. It provides both `build_pdf()` and `load_content()` — the latter is reused by the orchestrator to parse JSON and Markdown inputs for all engines.
 - **EPUB splits chapters at h1 boundaries.** Each `h1` block starts a new EPUB chapter. Blocks before the first h1 become an "Introduction" chapter.
 - **Engines are independent.** PDF and EPUB generation have no dependency on each other. The sender only needs a file path.
 - **`--kindle` implies EPUB generation.** No need to pass `--epub --kindle` — `--kindle` alone generates the EPUB and sends it.
