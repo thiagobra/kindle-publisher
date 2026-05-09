@@ -12,12 +12,14 @@ A CLI tool that transforms JSON/Markdown content into PDF + EPUB and optionally 
 
 ## Commands
 
+The test suite lives under `tests/` and is split across four files: `test_epub_engine.py`, `test_kindle_sender.py`, `test_publish.py`, and `test_integration.py`.
+
 ```bash
 # Run all tests
 python -m pytest tests/ -v
 
-# Run a single test file
-python -m pytest tests/test_epub_engine.py -v
+# Run a single test file (any of the four)
+python -m pytest tests/test_publish.py -v
 
 # Run a specific test
 python -m pytest tests/test_epub_engine.py::test_epub_chapters_split_on_h1 -v
