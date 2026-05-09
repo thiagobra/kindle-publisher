@@ -56,6 +56,7 @@ Key design decisions:
 - **Engines are independent.** PDF and EPUB generation have no dependency on each other. The sender only needs a file path.
 - **`--kindle` implies EPUB generation.** No need to pass `--epub --kindle` — `--kindle` alone generates the EPUB and sends it.
 - **`--send` bypasses the entire pipeline.** It takes a ready `.epub` file and sends it directly to Kindle — no parsing, no conversion. Rejects non-`.epub` inputs.
+- **Inputs are decoded with a fallback chain.** `publish.py` tries `utf-8-sig` → `utf-8` → `utf-16` → `latin-1` and uses the first decoder that succeeds. This lets BOM-prefixed and Notepad-saved UTF-16 files Just Work.
 
 ## Content Model
 
