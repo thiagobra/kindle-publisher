@@ -97,6 +97,13 @@ setx SENDER_EMAIL you@gmx.com
 setx SENDER_PASS your-gmx-password
 ```
 
+## Troubleshooting (Kindle delivery)
+
+- **SMTP auth fails.** Verify `SENDER_EMAIL` / `SENDER_PASS`. GMX may require an app-specific password if 2FA is enabled.
+- **Email is "delivered" but nothing reaches the Kindle.** The sender address must be on Amazon's Approved Personal Document E-mail List in your Amazon account settings.
+- **`KINDLE_EMAIL` rejected.** It must be the `@kindle.com` address from your Amazon "Manage Your Content and Devices" page — not your personal email.
+- **Different SMTP provider.** The host is hardcoded to `mail.gmx.com:587` in `engines/kindle_sender.py`. Switching providers requires editing that file.
+
 ## Testing Conventions
 
 - SMTP is always mocked — no real emails sent during tests
