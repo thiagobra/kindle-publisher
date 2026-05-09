@@ -64,6 +64,8 @@ Both engines consume the same JSON content dict. The `blocks` array is flat (no 
 
 Inline markup in text fields: `**bold**`, `*italic*`, `` `code` ``.
 
+See `sample.json` at the repo root for a working example exercising several block types (`h1`, `p`, `tip`, `bullets`, `code`). Try it with `python publish.py sample.json --pdf --epub`.
+
 ## Environment Variables (for --kindle)
 
 - `KINDLE_EMAIL` — Kindle's Send-to-Kindle address
