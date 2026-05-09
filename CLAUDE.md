@@ -24,8 +24,15 @@ python -m pytest tests/test_publish.py -v
 # Run a specific test
 python -m pytest tests/test_epub_engine.py::test_epub_chapters_split_on_h1 -v
 
-# Install dependencies
+# Install runtime dependencies
 pip install -r requirements.txt
+
+# Install dev dependencies (adds pytest + ruff)
+pip install -r requirements-dev.txt
+
+# Lint & format (config in pyproject.toml; engines/pdf_engine.py is excluded as vendored)
+ruff check .
+ruff format .
 
 # CLI usage
 python publish.py content.json --pdf              # PDF only
@@ -38,6 +45,8 @@ python publish.py content.json --pdf -o ./out     # Write outputs to a specific 
 ```
 
 Outputs default to the input file's parent directory; pass `-o` / `--output-dir` to override. The directory must already exist.
+
+`ruff check .` will surface a small baseline of pre-existing violations (unused imports, import order in `tests/`, one long line). They are tracked separately and not gating; new code should be clean.
 
 ## Architecture
 
