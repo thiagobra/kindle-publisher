@@ -72,7 +72,30 @@ See `sample.json` at the repo root for a working example exercising several bloc
 - `SENDER_EMAIL` — GMX sender email
 - `SENDER_PASS` — GMX password
 
-Set once via `setx` on Windows. The sender email must be in Amazon's Approved Personal Document E-mail List.
+The sender email must be in Amazon's Approved Personal Document E-mail List.
+
+Set the variables once per machine:
+
+```bash
+# Linux / macOS (bash, zsh) — persist by appending to ~/.bashrc or ~/.zshrc
+export KINDLE_EMAIL=you@kindle.com
+export SENDER_EMAIL=you@gmx.com
+export SENDER_PASS=your-gmx-password
+```
+
+```powershell
+# Windows PowerShell — persist with [Environment]::SetEnvironmentVariable(..., 'User')
+$env:KINDLE_EMAIL = 'you@kindle.com'
+$env:SENDER_EMAIL = 'you@gmx.com'
+$env:SENDER_PASS  = 'your-gmx-password'
+```
+
+```cmd
+:: Windows cmd — setx persists to the user environment (new shells only)
+setx KINDLE_EMAIL you@kindle.com
+setx SENDER_EMAIL you@gmx.com
+setx SENDER_PASS your-gmx-password
+```
 
 ## Testing Conventions
 
